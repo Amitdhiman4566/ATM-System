@@ -1,0 +1,71 @@
+class Account {
+    private int accountNumber;
+    private double balance;
+
+    public Account(int accountNumber, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: $" + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: $" + amount);
+        } else {
+            System.out.println("Insufficient balance or invalid withdrawal amount.");
+        }
+    }
+}
+
+class ATM {
+    private Account account;
+
+    public ATM(Account account) {
+        this.account = account;
+    }
+
+    public void checkBalance() {
+        System.out.println("Current Balance: $" + account.getBalance());
+    }
+
+    public void deposit(double amount) {
+        account.deposit(amount);
+    }
+
+    public void withdraw(double amount) {
+        account.withdraw(amount);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Account account = new Account(123456789, 1000.0);
+        ATM atm = new ATM(account);
+
+        System.out.println("Welcome to the ATM!");
+        System.out.println("Account Number: " + account.getAccountNumber());
+
+        atm.checkBalance();
+        atm.deposit(500.0);
+        atm.checkBalance();
+        atm.withdraw(300.0);
+        atm.checkBalance();
+    }
+}
